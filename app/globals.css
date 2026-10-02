@@ -1,0 +1,699 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&family=Inter:wght@400;600;700;800&display=swap');
+
+/* ========================================================
+   TEMA SANDBOX / BLOCKY - PALET WARNA RESMI
+   Primary:   Biru (#2563eb, #3b82f6, #1e40af, #dbeafe)
+   Secondary: Putih (#ffffff, #f8fafc)
+   Accent:    Kuning (#facc15, #fde047, #ca8a04)
+   Neutral:   Hitam Slate (#1e293b), Abu (#94a3b8, #e2e8f0)
+   ======================================================== */
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #dbeafe;
+    background-image: 
+      linear-gradient(#bfdbfe 2px, transparent 2px),
+      linear-gradient(90deg, #bfdbfe 2px, transparent 2px);
+    background-size: 36px 36px;
+    background-position: -1px -1px;
+    color: #1e293b;
+    min-height: 100vh;
+    line-height: 1.5;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Overlay halus pencahayaan atas */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.45) 0%, transparent 80%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* ========================================================
+   ANIMASI BLOCKY (TIMING STEPS - RETRO 8-BIT)
+   ======================================================== */
+
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  75% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-3px, 2px);
+  }
+  50% {
+    transform: translate(3px, -2px);
+  }
+  75% {
+    transform: translate(-2px, -2px);
+  }
+}
+
+@keyframes blinkCursor {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bounceStep {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes flipBlock {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+/* ========================================================
+   TYPOGRAPHY RETRO & PIXEL FONT
+   ======================================================== */
+
+.font-pixel {
+  font-family: 'Press Start 2P', cursive, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.font-retro {
+  font-family: 'VT323', monospace;
+  letter-spacing: 0.08em;
+}
+
+.font-silkscreen {
+  font-family: 'Silkscreen', cursive, sans-serif;
+}
+
+/* ========================================================
+   SECTION & KARTU KOTAK (BLOCKY CARDS)
+   ======================================================== */
+
+.glass-panel,
+.sandbox-card {
+  background: #ffffff !important;
+  border: 4px solid #2563eb !important;
+  border-radius: 8px !important;
+  box-shadow: 8px 8px 0 #1e40af !important;
+  color: #1e293b !important;
+  transition: transform 0.15s steps(3), box-shadow 0.15s steps(3) !important;
+  animation: popIn 0.3s steps(4) forwards;
+}
+
+.sandbox-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0 #1e40af !important;
+}
+
+/* ========================================================
+   1. TAB BAR (STICKY, SOLID BIRU, TAB KUNING AKTIF)
+   ======================================================== */
+
+.sandbox-tabbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: #2563eb !important;
+  border-bottom: 4px solid #1e40af !important;
+  box-shadow: 0 6px 0 #1e40af !important;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+}
+
+.sandbox-tab-item {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.65rem;
+  padding: 10px 16px;
+  border-radius: 4px;
+  transition: all 0.15s steps(3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.sandbox-tab-item.active {
+  background: #facc15 !important;
+  color: #1e293b !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 4px 4px 0 #ca8a04 !important;
+  transform: translate(-1px, -1px);
+}
+
+.sandbox-tab-item.inactive {
+  color: #ffffff !important;
+  background: transparent;
+}
+
+.sandbox-tab-item.inactive:hover {
+  background: #3b82f6 !important;
+  border: 2px solid #1e40af;
+  transform: translate(-1px, -1px);
+}
+
+/* ========================================================
+   2. HEADER & BRAND JUDUL (BLOCKY SHADOW KUNING)
+   ======================================================== */
+
+.sandbox-title {
+  font-family: 'Press Start 2P', cursive;
+  color: #2563eb;
+  text-shadow: 4px 4px 0 #facc15, 6px 6px 0 #ca8a04;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+}
+
+.sandbox-subtitle {
+  font-family: 'VT323', monospace;
+  font-size: 1.45rem;
+  color: #1e40af;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* ========================================================
+   3. STATUS BAR (#server-status)
+   ======================================================== */
+
+#server-status,
+.server-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 22px;
+  background: #ffffff !important;
+  border: 4px solid #2563eb !important;
+  border-radius: 8px !important;
+  margin: 14px auto;
+  box-shadow: 6px 6px 0 #1e40af !important;
+  animation: popIn 0.3s steps(4) forwards;
+}
+
+.status-label {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.65rem;
+  color: #1e40af;
+  font-weight: 700;
+}
+
+.status-badge-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-badge-box {
+  padding: 4px 10px;
+  border: 2px solid #000000;
+  border-radius: 2px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 2px 2px 0 #000000;
+}
+
+.status-badge-box.online {
+  background: #22c55e;
+  color: #000000;
+}
+
+.status-badge-box.stale {
+  background: #facc15;
+  color: #000000;
+}
+
+.status-badge-box.offline {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.status-dot-block {
+  width: 8px;
+  height: 8px;
+  background: #000000;
+  display: inline-block;
+  animation: blinkCursor 0.8s steps(2) infinite;
+}
+
+.status-gif {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #000000;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 #000000;
+  image-rendering: pixelated;
+  vertical-align: middle;
+}
+
+/* ========================================================
+   4. STATS CARD GRID (.stats-grid, .stats-card)
+   ======================================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 640px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stats-card {
+  background: #ffffff !important;
+  border: 4px solid #2563eb !important;
+  border-radius: 8px !important;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 6px 6px 0 #1e40af !important;
+  transition: transform 0.15s steps(3), box-shadow 0.15s steps(3);
+}
+
+.stats-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 #1e40af !important;
+}
+
+.stats-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.stats-label {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.55rem;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stats-icon {
+  color: #2563eb;
+}
+
+.stats-value {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2563eb;
+  line-height: 1.4;
+  margin-top: 4px;
+  word-break: break-word;
+}
+
+/* ========================================================
+   5. DAFTAR PEMAIN ONLINE (.player-list)
+   ======================================================== */
+
+.player-list-container {
+  background: #ffffff !important;
+  border: 4px solid #2563eb !important;
+  border-radius: 8px !important;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 8px 8px 0 #1e40af !important;
+}
+
+.player-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 3px dashed #2563eb;
+}
+
+.player-list-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.player-list-count {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.6rem;
+  background: #facc15;
+  color: #1e293b;
+  border: 2px solid #000000;
+  padding: 4px 8px;
+  border-radius: 2px;
+  box-shadow: 2px 2px 0 #000000;
+}
+
+.player-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* Scrollbar retro pixel */
+.player-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.player-list::-webkit-scrollbar-track {
+  background: #dbeafe;
+  border: 2px solid #2563eb;
+}
+
+.player-list::-webkit-scrollbar-thumb {
+  background: #2563eb;
+  border: 1px solid #1e40af;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  background: #dbeafe;
+  border: 2px solid #2563eb;
+  border-radius: 4px;
+  color: #1e293b;
+  box-shadow: 3px 3px 0 #1e40af;
+  transition: transform 0.15s steps(3), box-shadow 0.15s steps(3);
+}
+
+.player-item:hover {
+  transform: translate(-2px, -2px);
+  background: #bfdbfe;
+  box-shadow: 5px 5px 0 #1e40af;
+}
+
+.player-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #facc15;
+  border: 1px solid #000000;
+  border-radius: 0;
+  flex-shrink: 0;
+  margin-right: 10px;
+  box-shadow: 1px 1px 0 #000000;
+}
+
+.player-name {
+  font-family: 'VT323', monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.05em;
+}
+
+.empty {
+  text-align: center;
+  padding: 24px 12px;
+  color: #64748b;
+  font-family: 'VT323', monospace;
+  font-size: 1.35rem;
+  font-style: italic;
+  background: #f8fafc;
+  border: 2px dashed #94a3b8;
+  border-radius: 6px;
+}
+
+/* ========================================================
+   6. TOMBOL 3D BLOCKY PRESS EFFECT (HOVER & ACTIVE)
+   ======================================================== */
+
+.btn-blocky-blue {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border: 3px solid #1e40af !important;
+  border-radius: 6px !important;
+  box-shadow: 6px 6px 0 #1e40af !important;
+  font-weight: 700;
+  transition: transform 0.1s steps(3), box-shadow 0.1s steps(3) !important;
+  cursor: pointer;
+}
+
+.btn-blocky-blue:hover {
+  transform: translate(-2px, -2px);
+  background: #3b82f6 !important;
+  box-shadow: 8px 8px 0 #1e40af !important;
+}
+
+.btn-blocky-blue:active {
+  transform: translate(4px, 4px) !important;
+  box-shadow: 2px 2px 0 #1e40af !important;
+}
+
+.btn-blocky-yellow {
+  background: #facc15 !important;
+  color: #1e293b !important;
+  border: 3px solid #ca8a04 !important;
+  border-radius: 6px !important;
+  box-shadow: 6px 6px 0 #ca8a04 !important;
+  font-weight: 700;
+  transition: transform 0.1s steps(3), box-shadow 0.1s steps(3) !important;
+  cursor: pointer;
+}
+
+.btn-blocky-yellow:hover {
+  transform: translate(-2px, -2px);
+  background: #fde047 !important;
+  box-shadow: 8px 8px 0 #ca8a04 !important;
+}
+
+.btn-blocky-yellow:active {
+  transform: translate(4px, 4px) !important;
+  box-shadow: 2px 2px 0 #ca8a04 !important;
+}
+
+/* ========================================================
+   7. GUIDE SLIDER & LANG SWITCH
+   ======================================================== */
+
+.step-box-num {
+  width: 28px;
+  height: 28px;
+  background: #facc15;
+  border: 2px solid #000000;
+  color: #000000;
+  border-radius: 2px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 0 #000000;
+  flex-shrink: 0;
+}
+
+.btn-slide-next {
+  width: 44px;
+  height: 44px;
+  background: #2563eb;
+  border: 3px solid #1e40af;
+  border-radius: 6px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 0 #1e40af;
+  cursor: pointer;
+  transition: transform 0.1s steps(3), box-shadow 0.1s steps(3);
+  animation: bounceStep 1.2s steps(3) infinite;
+}
+
+.btn-slide-next:hover {
+  transform: translate(-2px, -2px);
+  background: #3b82f6;
+  box-shadow: 6px 6px 0 #1e40af;
+}
+
+.btn-slide-next:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #1e40af;
+}
+
+.guide-tip-box {
+  background: #dbeafe;
+  border: 3px solid #2563eb;
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: #1e40af;
+  font-family: 'VT323', monospace;
+  font-size: 1.35rem;
+  box-shadow: 4px 4px 0 #1e40af;
+}
+
+/* Switch Bahasa Blocky */
+.lang-box-container {
+  display: flex;
+  gap: 8px;
+  background: #ffffff;
+  padding: 4px;
+  border: 3px solid #2563eb;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 #1e40af;
+}
+
+.lang-btn-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.6rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.15s steps(3);
+}
+
+.lang-btn-item.active {
+  background: #facc15;
+  color: #1e293b;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0 #ca8a04;
+  animation: flipBlock 0.25s steps(4) forwards;
+}
+
+.lang-btn-item.inactive {
+  color: #64748b;
+}
+
+.lang-btn-item.inactive:hover {
+  background: #e2e8f0;
+}
+
+/* ========================================================
+   8. TOAST NOTIFICATION BLOCKY
+   ======================================================== */
+
+.toast-blocky {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  background: #facc15;
+  color: #1e293b;
+  border: 3px solid #000000;
+  border-radius: 6px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.7rem;
+  box-shadow: 6px 6px 0 #000000;
+  animation: popIn 0.25s steps(4) forwards;
+}
+
+/* ========================================================
+   9. FOOTER BLOCKY
+   ======================================================== */
+
+.footer-blocky {
+  background: #1e40af !important;
+  color: #ffffff !important;
+  border-top: 4px solid #facc15 !important;
+  text-align: center;
+  padding: 32px 16px;
+  margin-top: 48px;
+}
+
+.footer-link-discord {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.75rem;
+  color: #facc15;
+  text-shadow: 2px 2px 0 #000000;
+  text-decoration: underline;
+}
+
+.footer-link-discord:hover {
+  color: #fde047;
+}
+
+/* ========================================================
+   RESPONSIVE MEDIA QUERIES
+   ======================================================== */
+
+@media (max-width: 640px) {
+  .sandbox-title {
+    font-size: 1.6rem !important;
+  }
+
+  .sandbox-tabbar {
+    padding: 6px 8px;
+  }
+
+  .sandbox-tab-item {
+    font-size: 0.55rem;
+    padding: 8px 10px;
+  }
+
+  .player-list {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
